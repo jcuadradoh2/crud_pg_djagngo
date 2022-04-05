@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+        {% block title %}
+            Prueba
+        {% endblock title %}
+            </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        
+        {% block main %}
+        {% load static %}
+        <h1>Home</h1><br>        
+        <a href="{% url 'alumno_create' %}">Nuevo</a><br><br>
+        
+        {% for alumno in  alumnos %}
+            <label>{{ alumno.cedula }} </label><br>
+            <label>{{ alumno.nombre}} </label><br>
+            <label>{{ alumno.apellido}} </label><br>
+            <label> {{alumno.genero}} </label><br>
+            <label> {{alumno.foto}} </label><br>
+
+            <div class="card card-header mx-auto d-block mt-2" style="width: 100px;">
+                {% if alumno.foto == '' or alumno.foto == None %}
+                    <img class="card-img-top" src="{% static 'img/sinfoto.png' %}" alt="Card image" id="preview_foto"> 
+                {% else %}
+                    <img class="card-img-top" src="{{ alumno.foto.url }}" alt="Card image" id="preview_foto" width="50" height="50"> 
+                {% endif %}
+            </div>            
+
+           
+            <a href="{% url 'alumno_update' alumno.id %}">Editar</a>
+            <a href="{% url 'alumno_delete' alumno.id %}">Eliminar</a>
+
+        {% endfor %}
+            
+        
+        {% endblock main %}
+
+       
+                
+    </body>
+</html>
